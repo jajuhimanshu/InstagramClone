@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         // Check whether a user is already logged in
         if (auth.currentUser != null) {
-            openWelcomeScreen()
+            openHomeScreen()
             return
         }
 
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
                                 Toast.LENGTH_SHORT
                             ).show()
 
-                            openWelcomeScreen()
+                            openHomeScreen()
 
                         } else {
 
@@ -105,8 +105,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun openWelcomeScreen() {
-        val intent = Intent(this, WelcomeActivity::class.java)
+    private fun openHomeScreen() {
+        val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
         finish()
     }
