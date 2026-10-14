@@ -1,0 +1,86 @@
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/registerRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="#FFFFFF"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp">
+
+    <TextView
+        android:id="@+id/tvRegisterTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="16dp"
+        android:text="Instagram"
+        android:textColor="#262626"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:fontFamily="cursive" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:text="Sign up to see photos and videos from your friends."
+        android:textColor="#737373"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/etRegisterEmail"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Email address"
+        android:inputType="textEmailAddress"
+        android:padding="12dp"
+        android:textSize="14sp"
+        android:background="@drawable/login_input_background" />
+
+    <EditText
+        android:id="@+id/etRegisterPassword"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:textSize="14sp"
+        android:background="@drawable/login_input_background" />
+
+    <EditText
+        android:id="@+id/etConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:hint="Confirm password"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:textSize="14sp"
+        android:background="@drawable/login_input_background" />
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#0095F6"
+        android:text="Sign up"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvBackToLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Already have an account? Log in"
+        android:textColor="#262626"
+        android:textSize="13sp" />
+
+</LinearLayout>
