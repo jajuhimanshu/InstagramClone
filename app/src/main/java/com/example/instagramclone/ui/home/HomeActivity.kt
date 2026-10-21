@@ -8,6 +8,11 @@ import com.example.instagramclone.ui.profile.ProfileFragment
 import com.example.instagramclone.R
 import com.example.instagramclone.ui.search.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import android.view.View
+
+
 
 class HomeActivity : AppCompatActivity() {
 
@@ -16,6 +21,28 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        val homeRoot = findViewById<View>(R.id.homeRoot)
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
+
+        val originalLeft = bottomNav.paddingLeft
+        val originalTop = bottomNav.paddingTop
+        val originalRight = bottomNav.paddingRight
+
+        ViewCompat.setOnApplyWindowInsetsListener(homeRoot) { _, insets ->
+            val bottomInset = insets.getInsets(
+                WindowInsetsCompat.Type.navigationBars()
+            ).bottom
+
+            bottomNav.setPadding(
+                originalLeft,
+                originalTop,
+                originalRight,
+                bottomInset
+            )
+
+            insets
+        }
 
         bottomNavigation = findViewById(R.id.bottomNavigation)
 
