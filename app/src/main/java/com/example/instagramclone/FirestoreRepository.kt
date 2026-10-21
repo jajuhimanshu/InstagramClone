@@ -22,4 +22,20 @@ class FirestoreRepository {
                 onFailure(exception)
             }
     }
+
+    fun savePost(
+        post: Post,
+        onSuccess: () -> Unit,
+        onFailure: (Exception) -> Unit
+    ) {
+        db.collection("posts")
+            .document(post.postId)
+            .set(post)
+            .addOnSuccessListener {
+                onSuccess()
+            }
+            .addOnFailureListener { exception ->
+                onFailure(exception)
+            }
+    }
 }
