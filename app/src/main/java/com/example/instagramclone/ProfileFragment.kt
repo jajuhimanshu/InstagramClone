@@ -95,7 +95,6 @@ class ProfileFragment : Fragment() {
             val bundle = Bundle()
             bundle.putString("userId", auth.currentUser?.uid)
             bundle.putString("type", "following")
-
             fragment.arguments = bundle
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, fragment)
