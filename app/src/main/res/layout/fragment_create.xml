@@ -1,44 +1,43 @@
 
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/createScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:clipToPadding="false">
 
     <LinearLayout
+        android:id="@+id/createRoot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="24dp">
+        android:background="#000000">
 
-        <!-- Top toolbar -->
-        <LinearLayout
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="12dp"
-            android:paddingEnd="16dp">
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/btnBack"
-                android:layout_width="44dp"
+                android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:contentDescription="Back"
                 android:gravity="center"
                 android:text="‹"
                 android:textColor="#FFFFFF"
-                android:textSize="36sp" />
+                android:textSize="38sp"
+                android:contentDescription="Go back" />
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:paddingStart="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/btnBack"
+                android:layout_centerVertical="true"
                 android:text="New post"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
@@ -48,98 +47,134 @@
                 android:id="@+id/btnShareTop"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
                 android:gravity="center"
-                android:paddingStart="12dp"
-                android:paddingEnd="4dp"
                 android:text="Share"
                 android:textColor="#0095F6"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:paddingStart="8dp"
+                android:paddingEnd="4dp" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#292929" />
+            android:background="#262626" />
 
-        <!-- Selected image preview -->
+
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="320dp"
-            android:layout_margin="16dp"
-            android:background="#202020">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            android:background="#1C1C1C"
+            android:minHeight="240dp">
 
             <ImageView
                 android:id="@+id/ivSelectedImage"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="Selected post image"
-                android:padding="90dp"
-                android:scaleType="centerInside"
-                android:src="@android:drawable/ic_menu_gallery"
-                app:tint="#888888" />
-
-            <TextView
-                android:id="@+id/tvSelectPhotoHint"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:maxHeight="420dp"
+                android:scaleType="fitCenter"
+                android:contentDescription="Selected post photo" />
+
+            <LinearLayout
+                android:id="@+id/photoPlaceholder"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
                 android:gravity="center"
-                android:text="Select a photo to create your post"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="▧"
+                    android:textColor="#A8A8AD"
+                    android:textSize="36sp"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/tvSelectPhotoHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center"
+                    android:text="Select a photo to create your post"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
 
         </FrameLayout>
 
-        <!-- Gallery picker button -->
+
         <Button
             android:id="@+id/btnSelectPhoto"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            android:backgroundTint="#0095F6"
             android:text="Select photo from gallery"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
 
-        <!-- Caption -->
+
         <EditText
             android:id="@+id/etCaption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:backgroundTint="#555555"
+            android:background="@android:color/transparent"
             android:gravity="top|start"
             android:hint="Write a caption..."
             android:inputType="textCapSentences|textMultiLine"
-            android:minHeight="100dp"
-            android:padding="12dp"
+            android:minHeight="90dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
             android:textColor="#FFFFFF"
-            android:textColorHint="#999999"
+            android:textColorHint="#8E8E8E"
             android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:background="#262626" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="Your post will be saved to your account."
-            android:textColor="#999999"
-            android:textSize="13sp" />
+            android:textColor="#8E8E8E"
+            android:textSize="14sp" />
 
-        <!-- Main Share button -->
         <Button
             android:id="@+id/btnSharePost"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="12dp"
+            android:backgroundTint="#0095F6"
             android:text="Share post"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
 
     </LinearLayout>
 
