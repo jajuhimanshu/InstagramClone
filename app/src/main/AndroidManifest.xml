@@ -1,8 +1,9 @@
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -15,11 +16,11 @@
         android:theme="@style/Theme.InstagramClone">
 
         <activity
-            android:name=".RegisterActivity"
+            android:name=".ui.auth.RegisterActivity"
             android:exported="false" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.auth.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
 
@@ -31,11 +32,11 @@
         </activity>
 
         <activity
-            android:name=".WelcomeActivity"
+            android:name=".ui.auth.WelcomeActivity"
             android:exported="false" />
 
         <activity
-            android:name=".HomeActivity"
+            android:name=".ui.home.HomeActivity"
             android:exported="false" />
 
     </application>

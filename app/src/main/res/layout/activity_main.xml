@@ -1,4 +1,5 @@
 
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main"
@@ -6,21 +7,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:background="#FFFFFF"
+    android:background="?android:attr/colorBackground"
     android:paddingStart="24dp"
     android:paddingEnd="24dp">
 
-    <!-- Language at the top -->
     <TextView
         android:id="@+id/tvLanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="English (India)"
-        android:textColor="#737373"
+        android:textColor="?android:attr/textColorSecondary"
         android:textSize="12sp" />
 
-    <!-- Main login content -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -28,7 +27,6 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <!-- Instagram wordmark approximation -->
         <TextView
             android:id="@+id/tvAppName"
             android:layout_width="wrap_content"
@@ -36,11 +34,10 @@
             android:layout_marginBottom="42dp"
             android:fontFamily="cursive"
             android:text="Instagram"
-            android:textColor="#262626"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="42sp"
             android:textStyle="bold" />
 
-        <!-- Email input -->
         <EditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
@@ -50,11 +47,10 @@
             android:inputType="textEmailAddress"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            android:textColor="#262626"
-            android:textColorHint="#737373"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textColorHint="?android:attr/textColorHint"
             android:textSize="13sp" />
 
-        <!-- Password input -->
         <EditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
@@ -65,11 +61,10 @@
             android:inputType="textPassword"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            android:textColor="#262626"
-            android:textColorHint="#737373"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textColorHint="?android:attr/textColorHint"
             android:textSize="13sp" />
 
-        <!-- Forgot password -->
         <TextView
             android:id="@+id/tvForgotPassword"
             android:layout_width="wrap_content"
@@ -77,11 +72,10 @@
             android:layout_gravity="end"
             android:layout_marginTop="16dp"
             android:text="Forgot password?"
-            android:textColor="#0064E0"
+            android:textColor="#0095F6"
             android:textSize="13sp"
             android:textStyle="bold" />
 
-        <!-- Login button -->
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
@@ -94,7 +88,6 @@
             android:textSize="14sp"
             android:textStyle="bold" />
 
-        <!-- OR divider -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -106,7 +99,7 @@
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_weight="1"
-                android:background="#DBDBDB" />
+                android:background="?android:attr/textColorHint" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -114,7 +107,7 @@
                 android:layout_marginStart="18dp"
                 android:layout_marginEnd="18dp"
                 android:text="OR"
-                android:textColor="#737373"
+                android:textColor="?android:attr/textColorSecondary"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -122,11 +115,10 @@
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_weight="1"
-                android:background="#DBDBDB" />
+                android:background="?android:attr/textColorHint" />
 
         </LinearLayout>
 
-        <!-- Registration link -->
         <TextView
             android:id="@+id/tvRegister"
             android:layout_width="wrap_content"
@@ -139,14 +131,13 @@
 
     </LinearLayout>
 
-    <!-- Bottom branding -->
     <TextView
         android:id="@+id/tvMeta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:text="from Meta"
-        android:textColor="#737373"
+        android:textColor="?android:attr/textColorSecondary"
         android:textSize="12sp" />
 
 </LinearLayout>
