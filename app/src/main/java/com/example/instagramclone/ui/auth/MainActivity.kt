@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.instagramclone.ui.home.HomeActivity
 import com.example.instagramclone.R
 import com.google.firebase.auth.FirebaseAuth
+import android.app.AlertDialog
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         val passwordInput = findViewById<EditText>(R.id.etPassword)
         val loginButton = findViewById<Button>(R.id.btnLogin)
         val registerText = findViewById<TextView>(R.id.tvRegister)
+        val forgotPasswordText = findViewById<TextView>(R.id.tvForgotPassword)
 
 
         if (auth.currentUser != null) {
@@ -59,6 +61,47 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+        forgotPasswordText.setOnClickListener {
+            val email = emailInput.text.toString().trim()
+
+            if (email.isEmpty()) {
+                emailInput.error = "Please enter your registered email"
+                emailInput.requestFocus()
+                return@setOnClickListener
+            }
+
+            AlertDialog.Builder(this)
+                .setTitle("Reset Password")
+                .setMessage("Send a password reset link to $email?")
+                .setNegativeButton("Cancel", null)
+                .setPositiveButton("Send") { _, _ ->
+
+                    forgotPasswordText.isEnabled = false
+
+                    auth.sendPasswordResetEmail(email)
+                        .addOnCompleteListener { task ->
+                            forgotPasswordText.isEnabled = true
+
+                            if (task.isSuccessful) {
+                                AlertDialog.Builder(this)
+                                    .setTitle("Email Sent")
+                                    .setMessage(
+                                        "If the address is registered, check your email for the password reset link."
+                                    )
+                                    .setPositiveButton("OK", null)
+                                    .show()
+                            } else {
+                                Toast.makeText(
+                                    this,
+                                    "Unable to send reset email. Please try again.",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                }
+                .show()
+        }
 
         loginButton.setOnClickListener {
 
