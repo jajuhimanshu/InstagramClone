@@ -161,12 +161,11 @@ class HomeFragment : Fragment() {
             }
         )
     }
-
     private fun openComments(post: Post) {
         parentFragmentManager.beginTransaction()
             .replace(
                 R.id.fragmentContainer,
-                CommentsFragment.newInstance(post.postId)
+                CommentsFragment.newInstance(post.postId,post.authorId)
             )
             .addToBackStack(null)
             .commit()

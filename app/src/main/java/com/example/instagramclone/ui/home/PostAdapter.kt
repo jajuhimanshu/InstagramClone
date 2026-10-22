@@ -238,6 +238,7 @@ class PostAdapter(
             firestoreRepository.togglePostLike(
                 postId = postId,
                 userId = userId,
+                postOwnerId = post.authorId,
                 onSuccess = { isLiked, newCount ->
                     likedPosts[postId] = isLiked
 

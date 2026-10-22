@@ -8,7 +8,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class FirestoreRepository {
 
     private val db = FirebaseFirestore.getInstance()
-
+    private val notificationRepository = NotificationRepository()
     fun saveUserProfile(
         user: User,
         onSuccess: () -> Unit,
@@ -222,6 +222,7 @@ class FirestoreRepository {
     fun togglePostLike(
         postId: String,
         userId: String,
+        postOwnerId: String,
         onSuccess: (Boolean, Long) -> Unit,
         onFailure: (Exception) -> Unit
     ) {
@@ -275,6 +276,17 @@ class FirestoreRepository {
             Pair(isNowLiked, newCount)
 
         }.addOnSuccessListener { result ->
+            val isNowLiked = result.first
+
+            if (isNowLiked) {
+
+                notificationRepository.createNotification(
+                    actorId = userId,
+                    recipientId = postOwnerId,
+                    type = "like",
+                    postId = postId,
+                )
+            }
             onSuccess(result.first, result.second)
         }.addOnFailureListener { exception ->
             onFailure(exception)
@@ -311,6 +323,7 @@ class FirestoreRepository {
     fun addComment(
         postId: String,
         authorId: String,
+        postOwnerId: String,
         text: String,
         onSuccess: (Comment) -> Unit,
         onFailure: (Exception) -> Unit
@@ -357,6 +370,17 @@ class FirestoreRepository {
             comment
 
         }.addOnSuccessListener { savedComment ->
+
+            notificationRepository.createNotification(
+                actorId = authorId,
+                recipientId = postOwnerId,
+                type = "comment",
+                postId = postId,
+                commentId = savedComment.commentId
+            )
+
+            onSuccess(savedComment)
+
             onSuccess(savedComment)
         }.addOnFailureListener { exception ->
             onFailure(exception)

@@ -32,10 +32,12 @@ class CommentsFragment : Fragment() {
     private val repository = FirestoreRepository()
 
     private var postId: String = ""
+    private var postOwnerId: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         postId = arguments?.getString(ARG_POST_ID).orEmpty()
+        postOwnerId = arguments?.getString(ARG_POST_OWNER_ID).orEmpty()
     }
 
     override fun onCreateView(
@@ -136,6 +138,7 @@ class CommentsFragment : Fragment() {
         repository.addComment(
             postId = postId,
             authorId = currentUid,
+            postOwnerId = postOwnerId,
             text = text,
             onSuccess = { savedComment ->
                 if (!isAdded) return@addComment
@@ -175,11 +178,13 @@ class CommentsFragment : Fragment() {
 
     companion object {
         private const val ARG_POST_ID = "post_id"
+        private const val ARG_POST_OWNER_ID = "post_owner_id"
 
-        fun newInstance(postId: String): CommentsFragment {
+        fun newInstance(postId: String,postOwnerId :String ): CommentsFragment {
             return CommentsFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_POST_ID, postId)
+                    putString(ARG_POST_OWNER_ID, postOwnerId)
                 }
             }
         }
