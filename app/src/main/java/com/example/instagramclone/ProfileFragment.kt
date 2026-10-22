@@ -13,7 +13,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ProfileFragment : Fragment() {
@@ -22,6 +25,7 @@ class ProfileFragment : Fragment() {
     private lateinit var ivMenu: ImageView
     private lateinit var tvDisplayName: TextView
     private lateinit var tvBio: TextView
+    private lateinit var tvPostCount: TextView
     private lateinit var tvFollowersCount: TextView
     private lateinit var tvFollowingCount: TextView
     private lateinit var layoutFollowers: LinearLayout
@@ -31,6 +35,15 @@ class ProfileFragment : Fragment() {
     private lateinit var ivProfileImage : ImageView
     private lateinit var btnEditProfile: Button
     private lateinit var btnShareProfile: Button
+
+    private lateinit var rvProfilePosts: RecyclerView
+
+    private lateinit var profilePostAdapter: ProfilePostAdapter
+
+    private lateinit var layoutEmptyPosts: LinearLayout
+
+    private val imageList = mutableListOf<String>()
+
 
     private val auth = FirebaseAuth.getInstance()
     private val firestore = FirebaseFirestore.getInstance()
@@ -50,10 +63,12 @@ class ProfileFragment : Fragment() {
         tvDisplayName = view.findViewById(R.id.tvDisplayName)
         tvBio = view.findViewById(R.id.tvBio)
         ivProfileImage = view.findViewById(R.id.ivProfileImage)
+        tvPostCount = view.findViewById(R.id.tvPostCount)
         tvFollowersCount = view.findViewById(R.id.tvFollowersCount)
         tvFollowingCount = view.findViewById(R.id.tvFollowingCount)
         layoutFollowers = view.findViewById(R.id.layoutFollowers)
         layoutFollowing = view.findViewById(R.id.layoutFollowing)
+        layoutEmptyPosts = view.findViewById(R.id.layoutEmptyPosts)
 
         ivMenu = view.findViewById(R.id.ivMenu)
 
@@ -101,6 +116,13 @@ class ProfileFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+
+        rvProfilePosts = view.findViewById(R.id.rvProfilePosts)
+
+        profilePostAdapter = ProfilePostAdapter(imageList)
+        rvProfilePosts.layoutManager = GridLayoutManager(requireContext(), 3)
+        rvProfilePosts.adapter = profilePostAdapter
+
         return view
     }
 
@@ -113,6 +135,7 @@ class ProfileFragment : Fragment() {
 
         if (passedUserId != null) {
             loadUserDataFromFirestore(passedUserId)
+            loadUserPosts(passedUserId)
             checkIfFollowing(passedUserId)
             btnEditProfile.setOnClickListener {
                 if (btnEditProfile.text == "Follow") {
@@ -133,6 +156,7 @@ class ProfileFragment : Fragment() {
 
             if (currentUid != null) {
                 loadUserDataFromFirestore(currentUid)
+                loadUserPosts(currentUid)
             }
         }
     }
@@ -175,7 +199,6 @@ class ProfileFragment : Fragment() {
     private fun base64ToBitmap(
         base64String: String
     ): Bitmap {
-
         val decodedBytes = android.util.Base64.decode(base64String, android.util.Base64.DEFAULT)
         return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size
         )
@@ -281,6 +304,47 @@ class ProfileFragment : Fragment() {
             .get()
             .addOnSuccessListener { snapshot ->
                 tvFollowingCount.text = snapshot.size().toString()
+            }
+    }
+
+    private fun loadUserPosts(
+        userId: String
+    ) {
+        FirebaseFirestore.getInstance()
+            .collection("posts")
+            .whereEqualTo("authorId", userId)
+            .get()
+            .addOnSuccessListener { snapshots ->
+                tvPostCount.text = snapshots.size().toString()
+                val images = mutableListOf<String>()
+                for (document in snapshots.documents) {
+                    val post = document.toObject(Post::class.java)
+
+                    if (post != null) {
+                        FirebaseDatabase
+                            .getInstance("https://instagramclone-3fbc0-default-rtdb.firebaseio.com")
+                            .reference
+                            .child("postImages")
+                            .child(userId)
+                            .child(post.postId)
+                            .get()
+                            .addOnSuccessListener {
+                                val base64 = it.getValue(String::class.java)
+                                if (!base64.isNullOrEmpty()) {
+                                    images.add(base64)
+                                    profilePostAdapter.updateImages(images)
+                                }
+                            }
+                    }
+                    if (snapshots.isEmpty) {
+                        layoutEmptyPosts.visibility = View.VISIBLE
+                        rvProfilePosts.visibility = View.GONE
+
+                    } else {
+                        layoutEmptyPosts.visibility = View.GONE
+                        rvProfilePosts.visibility = View.VISIBLE
+                    }
+                }
             }
     }
 }

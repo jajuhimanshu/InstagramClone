@@ -57,7 +57,6 @@ class HomeFragment : Fragment() {
 
         postsRecyclerView.layoutManager =
             LinearLayoutManager(requireContext())
-
         postsRecyclerView.adapter = postAdapter
     }
 }
