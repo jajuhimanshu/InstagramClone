@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#000000">
 
-    <!-- Author information -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="54dp"
@@ -13,14 +14,16 @@
         android:paddingStart="12dp"
         android:paddingEnd="12dp">
 
-        <TextView
-            android:id="@+id/tvPostAvatar"
+
+        <ImageView
+            android:id="@+id/ivPostAvatar"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:background="@drawable/profile_circle_background"
-            android:gravity="center"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold" />
+            android:scaleType="centerCrop"
+            android:padding="0dp"
+            android:clipToOutline="true"
+            android:contentDescription="Author profile photo" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -53,11 +56,12 @@
             android:gravity="end"
             android:text="⋮"
             android:textColor="#FFFFFF"
-            android:textSize="26sp" />
+            android:textSize="26sp"
+            android:contentDescription="Post options" />
 
     </LinearLayout>
 
-    <!-- Post image -->
+
     <ImageView
         android:id="@+id/ivPostImage"
         android:layout_width="match_parent"
@@ -66,95 +70,117 @@
         android:scaleType="centerCrop"
         android:contentDescription="Post image" />
 
-    <!-- Like, comment, share and bookmark actions -->
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="44dp"
+        android:layout_height="48dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="12dp"
         android:paddingEnd="12dp">
 
-        <TextView
+        <ImageView
             android:id="@+id/btnLike"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="1dp"
+            android:src="@drawable/ic_heart_outline"
+            android:scaleType="fitCenter"
             android:contentDescription="Like post"
-            android:text="♡"
-            android:textColor="#FFFFFF"
-            android:textSize="29sp" />
+            android:clickable="true"
+            android:focusable="true" />
 
         <TextView
+            android:id="@+id/tvLikeCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="0"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <ImageView
             android:id="@+id/btnComment"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="18dp"
+            android:padding="1dp"
+            android:src="@drawable/ic_comment_outline"
+            android:scaleType="fitCenter"
             android:contentDescription="View comments"
-            android:text="○"
-            android:textColor="#FFFFFF"
-            android:textSize="25sp" />
+            android:clickable="true"
+            android:focusable="true" />
 
         <TextView
-            android:id="@+id/btnShare"
-            android:layout_width="40dp"
+            android:id="@+id/tvCommentCount"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:contentDescription="Share post"
-            android:text="➤"
+            android:layout_marginStart="4dp"
+            android:text="0"
             android:textColor="#FFFFFF"
-            android:textSize="24sp" />
+            android:textSize="14sp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <ImageView
+            android:id="@+id/btnShare"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="18dp"
+            android:padding="1dp"
+            android:src="@drawable/ic_share_outline"
+            android:scaleType="fitCenter"
+            android:contentDescription="Share post"
+            android:clickable="true"
+            android:focusable="true" />
 
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_weight="1" />
 
-        <TextView
+        <ImageView
             android:id="@+id/btnBookmark"
-            android:layout_width="36dp"
-            android:layout_height="wrap_content"
-            android:gravity="end"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="1dp"
+            android:src="@drawable/ic_bookmark_outline"
+            android:scaleType="fitCenter"
             android:contentDescription="Save post"
-            android:text="♧"
-            android:textColor="#FFFFFF"
-            android:textSize="27sp" />
+            android:clickable="true"
+            android:focusable="true" />
 
     </LinearLayout>
 
-    <!-- Like count -->
-    <TextView
-        android:id="@+id/tvLikeCount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="13dp"
-        android:paddingEnd="13dp"
-        android:textColor="#FFFFFF"
-        android:textSize="13sp" />
-
-    <!-- Caption -->
     <TextView
         android:id="@+id/tvPostCaption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="13dp"
         android:paddingEnd="13dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="6dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="5dp"
         android:textColor="#FFFFFF"
         android:textSize="13sp" />
 
-    <!-- Comment count -->
+
     <TextView
-        android:id="@+id/tvCommentCount"
+        android:id="@+id/tvViewAllComments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="13dp"
         android:paddingEnd="13dp"
         android:paddingBottom="5dp"
+        android:text="View all comments"
         android:textColor="#999999"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true" />
 
-    <!-- Timestamp -->
+
     <TextView
         android:id="@+id/tvPostTimestamp"
         android:layout_width="match_parent"
